@@ -1,0 +1,5 @@
+packages:
+  - 'packages/*'
+  - 'api-e2e'
+  - 'api'
+  - 'sdk'
