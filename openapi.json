@@ -11,90 +11,48 @@
     }
   ],
   "paths": {
-    "/login": {
-      "post": {
-        "summary": "User Login",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string",
-                    "description": "Username",
-                    "example": "johndoe"
-                  },
-                  "password": {
-                    "type": "string",
-                    "minLength": 6,
-                    "description": "User password",
-                    "example": "password123"
-                  }
-                },
-                "required": [
-                  "username",
-                  "password"
-                ]
-              }
-            }
-          }
-        },
+    "/joke": {
+      "get": {
+        "summary": "Get a Random Joke",
         "responses": {
           "200": {
-            "description": "Successful login",
+            "description": "A random joke",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": {
+                    "joke": {
                       "type": "string",
-                      "description": "Authentication token",
-                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                      "description": "A humorous text.",
+                      "example": "Why don’t programmers like nature? It has too many bugs."
                     }
                   },
                   "required": [
-                    "token"
+                    "joke"
                   ]
                 }
               }
             }
           }
         }
-      }
-    },
-    "/register": {
+      },
       "post": {
-        "summary": "User Registration",
+        "summary": "Add a New Joke",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "username": {
+                  "joke": {
                     "type": "string",
-                    "description": "Username",
-                    "example": "johndoe"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "description": "User email",
-                    "example": "john@example.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "minLength": 6,
-                    "description": "User password",
-                    "example": "password123"
+                    "description": "A humorous text.",
+                    "example": "Why don’t programmers like nature? It has too many bugs."
                   }
                 },
                 "required": [
-                  "username",
-                  "email",
-                  "password"
+                  "joke"
                 ]
               }
             }
@@ -102,31 +60,42 @@
         },
         "responses": {
           "201": {
-            "description": "User registered successfully",
+            "description": "Joke added successfully",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "userId": {
-                      "$ref": "#/components/schemas/userId"
+                    "message": {
+                      "type": "string"
                     },
-                    "username": {
+                    "joke": {
                       "type": "string",
-                      "description": "Username",
-                      "example": "johndoe"
-                    },
-                    "email": {
-                      "type": "string",
-                      "format": "email",
-                      "description": "User email",
-                      "example": "john@example.com"
+                      "description": "A humorous text.",
+                      "example": "Why don’t programmers like nature? It has too many bugs."
                     }
                   },
                   "required": [
-                    "userId",
-                    "username",
-                    "email"
+                    "message",
+                    "joke"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid joke format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
                   ]
                 }
               }
@@ -135,43 +104,25 @@
         }
       }
     },
-    "/user": {
+    "/fortune": {
       "get": {
-        "summary": "Get User Details",
-        "parameters": [
-          {
-            "name": "user",
-            "in": "path",
-            "required": true
-          }
-        ],
+        "summary": "Get a Fortune Cookie Message",
         "responses": {
           "200": {
-            "description": "User details retrieved successfully",
+            "description": "A random fortune cookie message",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "userId": {
-                      "$ref": "#/components/schemas/userId"
-                    },
-                    "username": {
+                    "fortune": {
                       "type": "string",
-                      "description": "Username",
-                      "example": "johndoe"
-                    },
-                    "email": {
-                      "type": "string",
-                      "format": "email",
-                      "description": "User email",
-                      "example": "john@example.com"
+                      "description": "A random fortune message.",
+                      "example": "Your next coffee will be the best one yet."
                     }
                   },
                   "required": [
-                    "userId",
-                    "username",
-                    "email"
+                    "fortune"
                   ]
                 }
               }
@@ -179,14 +130,98 @@
           }
         }
       }
-    }
-  },
-  "components": {
-    "schemas": {
-      "userId": {
-        "type": "string",
-        "description": "A unique identifier for a user",
-        "example": "user123"
+    },
+    "/mood": {
+      "get": {
+        "summary": "Get Current Mood",
+        "responses": {
+          "200": {
+            "description": "Current mood of the API",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mood": {
+                      "type": "string",
+                      "description": "The current mood of the API.",
+                      "example": "🤖 Debugging mode"
+                    }
+                  },
+                  "required": [
+                    "mood"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Mood",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "mood": {
+                    "type": "string",
+                    "description": "The current mood of the API.",
+                    "example": "🤖 Debugging mode"
+                  }
+                },
+                "required": [
+                  "mood"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mood updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "mood": {
+                      "type": "string",
+                      "description": "The current mood of the API.",
+                      "example": "🤖 Debugging mode"
+                    }
+                  },
+                  "required": [
+                    "message",
+                    "mood"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid mood format",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ]
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
