@@ -175,6 +175,10 @@ const document: { openapi: string; info: { title: string; version: string } } = 
       url: 'http://localhost:3333',
       description: 'Local development server',
     },
+    {
+      "url": "https://partyinhell.onrender.com",
+      "description": "Production development server"
+    }
   ],
   paths: {
     '/joke': {

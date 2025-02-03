@@ -2,9 +2,18 @@ import express, { Request, Response } from 'express';
 import * as path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import { openApiSchema } from './docs';
+import cors from 'cors'; // Import CORS middleware
+
+const corsOptions = {
+  origin: '*', // You can specify allowed origins here
+  methods: ['GET', 'POST', 'PATCH'], // Allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+};
 
 const app = express();
 
+// Apply CORS middleware globally
+app.use(cors(corsOptions));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 
@@ -26,15 +35,12 @@ app.get('/joke', (req: Request, res: Response) => {
   res.json({ joke });
 });
 
-
 // POST Add a New Joke
 app.post('/joke', (req: Request, res: Response): any => {
   const { joke } = req.body;
   if (!joke || typeof joke !== 'string') {
     return res.status(400).json({ error: 'Invalid joke format!' });
   }
-  jokes.push(joke);
-  res.status(201).json({ message: 'Joke added successfully!', joke });
   jokes.push(joke);
   res.status(201).json({ message: 'Joke added successfully!', joke });
 });
