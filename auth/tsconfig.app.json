@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist/apps/api",
+    "outDir": "dist/auth",
     "rootDir": "src",
     "tsBuildInfoFile": "out-tsc/api/tsconfig.app.tsbuildinfo",
     "declaration": true,          

@@ -3,3 +3,5 @@ packages:
   - 'api-e2e'
   - 'api'
   - 'sdk'
+  - 'auth-e2e'
+  - 'auth'

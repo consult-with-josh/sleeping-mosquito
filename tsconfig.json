@@ -11,6 +11,12 @@
     },
     {
       "path": "./sdk"
+    },
+    {
+      "path": "./auth-e2e"
+    },
+    {
+      "path": "./auth"
     }
   ]
 }

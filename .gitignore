@@ -5,6 +5,15 @@ dist
 tmp
 out-tsc
 
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+
 # dependencies
 node_modules
 
