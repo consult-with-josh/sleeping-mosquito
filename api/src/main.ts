@@ -2,25 +2,22 @@ import express, { Request, Response } from 'express';
 import * as path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import { openApiSchema } from './docs';
-import cors from 'cors'; // Import CORS middleware
+import cors from 'cors';
 
 const corsOptions = {
-  origin: '*', // You can specify allowed origins here
-  methods: ['GET', 'POST', 'PATCH'], // Allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+  origin: '*',
+  methods: ['GET', 'POST', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 const app = express();
 
-// Apply CORS middleware globally
 app.use(cors(corsOptions));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 
-// Serve Swagger UI
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(openApiSchema));
 
-// In-memory storage for jokes and moods
 const jokes: string[] = [
   "Why don’t programmers like nature? It has too many bugs.",
   "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
@@ -29,13 +26,11 @@ const jokes: string[] = [
 
 let currentMood: string = "🤖 Debugging mode";
 
-//  GET Random Joke
 app.get('/joke', (req: Request, res: Response) => {
   const joke = jokes[Math.floor(Math.random() * jokes.length)];
   res.json({ joke });
 });
 
-// POST Add a New Joke
 app.post('/joke', (req: Request, res: Response): any => {
   const { joke } = req.body;
   if (!joke || typeof joke !== 'string') {
@@ -45,7 +40,6 @@ app.post('/joke', (req: Request, res: Response): any => {
   res.status(201).json({ message: 'Joke added successfully!', joke });
 });
 
-//  GET Fortune Cookie Message
 app.get('/fortune', (req: Request, res: Response) => {
   const fortunes: string[] = [
     "You will debug a problem so well that it will never reappear. Ever.",
@@ -56,12 +50,10 @@ app.get('/fortune', (req: Request, res: Response) => {
   res.json({ fortune });
 });
 
-// GET Mood Checker
 app.get('/mood', (req: Request, res: Response) => {
   res.json({ mood: currentMood });
 });
 
-// PATCH Update Mood
 app.patch('/mood', (req: Request, res: Response): any => {
   const { mood } = req.body;
   if (!mood || typeof mood !== 'string') {

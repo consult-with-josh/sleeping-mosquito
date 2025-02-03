@@ -10,7 +10,6 @@ app.use(express.json());
 
 const SECRET_KEY = process.env.JWT_SECRET || 'supersecret';
 
-// Define schemas using Zod
 const registerSchema = z.object({
   username: z.string().min(3),
   password: z.string().min(6),
@@ -22,10 +21,8 @@ const loginSchema = z.object({
   password: z.string().min(6),
 });
 
-// Dummy user storage
 const users: Record<string, { password: string; email: string }> = {};
 
-// Register endpoint
 app.post('/register', (req, res) => {
   const validation = registerSchema.safeParse(req.body);
   if (!validation.success) {
@@ -43,7 +40,6 @@ app.post('/register', (req, res) => {
   return res.status(201).json({ status: true, message: 'User registered' });
 });
 
-// Login endpoint
 app.post('/login', (req, res) => {
   const validation = loginSchema.safeParse(req.body);
   if (!validation.success) {
@@ -61,7 +57,6 @@ app.post('/login', (req, res) => {
   return res.json({ status: true, message: 'User successfully logged in', data: { token } });
 });
 
-// Protected route
 app.get('/user', (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
 
@@ -75,7 +70,6 @@ app.get('/user', (req, res) => {
   }
 });
 
-// Start the server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Auth service running on http://localhost:${PORT}`);
