@@ -1,20 +1,33 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "composite": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "importHelpers": true,
-    "isolatedModules": true,
-    "lib": ["es2022"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
     "skipLibCheck": true,
-    "strict": true,
-    "target": "es2022"
-  }
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@scalex-africa/types": ["libs/types/src/index.ts"],
+      "@scalex-api/api-resources": ["libs/api-resources/src/index.ts"],
+      "@scalex-api/crypto-functions": ["libs/crypto-functions/src/index.ts"],
+      "@scalex-api/db": ["libs/db/src/index.ts"],
+      "@scalex-api/fiat-functions": ["libs/fiat-functions/src/index.ts"],
+      "@scalex-api/id-functions": ["libs/id-functions/src/index.ts"],
+      "@scalex-api/ramp-functions": ["libs/ramp-functions/src/index.ts"],
+      "@scalex-api/sdk": ["libs/sdk/src/index.ts"],
+      "@scalex-api/transaction-functions": [
+        "libs/transaction-functions/src/index.ts"
+      ],
+      "@scalex-api/util-functions": ["libs/util-functions/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
 }
