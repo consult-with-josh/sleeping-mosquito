@@ -9,10 +9,10 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string }; // Adjust type to your payload
-    req.user = decoded; // Attach user information to the request object
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string }; 
+    req.user = decoded; 
 
-    return next(); // Proceed to the next middleware or route handler
+    return next(); 
   } catch (error) {
     return res.status(403).send({ message: 'Invalid or expired token.' });
   }
