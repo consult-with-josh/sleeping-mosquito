@@ -1,0 +1,9 @@
+{
+  "name": "id-functions",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/id-functions/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project id-functions --web",
+  "targets": {}
+}
