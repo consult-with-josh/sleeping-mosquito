@@ -7,10 +7,10 @@ import { AppsBasePath, BusinessesBasePath } from "@scalex-africa/types";
 
 const MainRouter = Router();
 
-MainRouter.get( '/', ( _, res: Response ) => res.send( 'ok' ) );
-MainRouter.use( AuthBasePath,
-	limitRequestsTo( TimeLimits.fifteenMinutes, 5 ),
-	[ authRouter ]
+MainRouter.get('/', (_, res: Response) => res.send('ok'));
+MainRouter.use(AuthBasePath,
+	limitRequestsTo(TimeLimits.fifteenMinutes, 5),
+	[authRouter]
 );
 
 // MainRouter.use( KycBasePath,
@@ -18,13 +18,13 @@ MainRouter.use( AuthBasePath,
 // 	[ kycRouter ]
 // );
 
-// MainRouter.use( BusinessesBasePath,
-// 	[ businessRouter ]
-// );
+MainRouter.use(BusinessesBasePath,
+	[businessRouter]
+);
 
-// MainRouter.use( AppsBasePath,
-// 	[ appRouter ]
-// );
+MainRouter.use(AppsBasePath,
+	[appRouter]
+);
 
 export {
 	MainRouter
