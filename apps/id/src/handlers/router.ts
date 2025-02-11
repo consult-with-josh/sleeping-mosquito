@@ -13,10 +13,10 @@ MainRouter.use(AuthBasePath,
 	[authRouter]
 );
 
-// MainRouter.use( KycBasePath,
-// 	validateTokenCookie( secrets.jwt, [ TokenActions.doKyc ] ),
-// 	[ kycRouter ]
-// );
+MainRouter.use( KycBasePath,
+	validateTokenCookie( secrets.jwt, [ TokenActions.doKyc ] ),
+	[ kycRouter ]
+);
 
 MainRouter.use(BusinessesBasePath,
 	[businessRouter]
@@ -26,9 +26,6 @@ MainRouter.use(AppsBasePath,
 	[appRouter]
 );
 
-MainRouter.use(AppsBasePath,
-	[kycRouter]
-);
 
 export {
 	MainRouter
