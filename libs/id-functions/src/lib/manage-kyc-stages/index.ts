@@ -1,1 +1,1 @@
-export * from './manage-kyc-stage.function';
+export * from './manage-kyc-stages.function';

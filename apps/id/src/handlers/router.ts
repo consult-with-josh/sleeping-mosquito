@@ -26,6 +26,10 @@ MainRouter.use(AppsBasePath,
 	[appRouter]
 );
 
+MainRouter.use(AppsBasePath,
+	[kycRouter]
+);
+
 export {
 	MainRouter
 };
