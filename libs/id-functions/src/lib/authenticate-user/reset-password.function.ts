@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ResetPasswordResource, OtpContext, CookieStructure } from "@scalex-api/sdk";
+import { ResetPasswordResource, OtpContext, CookieStructure, ScxError } from "@scalex-api/sdk";
 import { notifyClientOfSuccess, throwScalexError, verifyOtp } from "@scalex-api/api-resources";
 import { User } from "@scalex-api/api-resources";
 import { RedisClientOptions } from "redis";
@@ -16,30 +16,46 @@ export async function resetPassword(
 ): Promise<typeof ResetPasswordResource.response> {
     try {
         const { email, otp, newPassword, confirmNewPassword } = args.req.body;
+
         if (!email || !otp || !newPassword || !confirmNewPassword) {
-            throw new Error("Missing required fields");
+            throw <ScxError>{
+                statusCode: 400,
+                message: "Missing required fields",
+                recommendedActions: ["Ensure all required fields are provided."]
+            };
         }
+
         if (newPassword !== confirmNewPassword) {
-            throw new Error("Passwords do not match");
+            throw <ScxError>{
+                statusCode: 400,
+                message: "Passwords do not match",
+                recommendedActions: ["Ensure both password fields match."]
+            };
         }
 
         await verifyOtp({
             payload: { recipient: email, context: OtpContext.resetPassword, otp },
             cacheConfig: args.cacheConfig,
         });
+
         const user = await User.model.findOne({ email });
         if (!user) {
-            throw new Error("User not found");
+            throw <ScxError>{
+                statusCode: 400,
+                message: "User not found",
+                recommendedActions: ["Ensure the email is correct and try again."]
+            };
         }
+
         user.updatePassword(newPassword);
         await user.save();
 
         return notifyClientOfSuccess<{ cookies?: CookieStructure[] }>({
             statusCode: 200,
             message: "Password reset successful",
-            data: { cookies: [] },
         });
     } catch (error) {
+        console.log(error)
         throwScalexError(error);
     }
 }
